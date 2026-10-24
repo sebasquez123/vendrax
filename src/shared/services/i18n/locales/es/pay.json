@@ -1,0 +1,14 @@
+{
+  "guides": {
+    "how_to_use": {
+      "ask_how": "Pregunta cómo hacer algo en METPAY o qué significa una opción: responde con los manuales de la plataforma.",
+      "find_person": "Para buscar a una persona, di el ente gestor u operador de recaudo y su nombre, documento, correo o usuario."
+    },
+    "keep_in_mind": {
+      "only_informs": "Solo informa: no hace ventas, recargas ni cambios, ni consulta saldos o reportes.",
+      "no_secrets": "Nunca te pedirá contraseñas, códigos ni PIN.",
+      "can_be_wrong": "Puede equivocarse: confirma los datos importantes en la plataforma.",
+      "no_memory": "No recuerda conversaciones anteriores al iniciar un chat nuevo."
+    }
+  }
+}

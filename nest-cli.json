@@ -1,0 +1,13 @@
+{
+  "collection": "@nestjs/schematics",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "tsConfigPath": "tsconfig.build.json",
+    "assets": ["assets/**/*", "shared/services/i18n/locales/**/*"],
+    "watchAssets": false
+  },
+  "generateOptions": {
+    "spec": false
+  },
+  "sourceRoot": "src"
+}

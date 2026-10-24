@@ -1,0 +1,24 @@
+{
+  "guides": {
+    "how_to_use": {
+      "ask_simply": "Ask in plain words which chart to create or change: which metric, by which column and how to see it.",
+      "name_the_chart": "Name the chart by its title to avoid ambiguity.",
+      "modes": "In Advanced mode changes are saved straight to the dashboard; in Guided mode it shows them first and asks you to confirm."
+    },
+    "keep_in_mind": {
+      "your_data": "It only uses the data available to your user, and some options can only be changed in the dashboard manager: it will tell you which.",
+      "can_be_wrong": "It can be wrong: check figures and filters before publishing.",
+      "no_memory": "It does not remember previous conversations when you start a new chat."
+    }
+  },
+  "modes": {
+    "advance": {
+      "label": "Advanced",
+      "description": "Works fast: it processes your request and changes the chart right away."
+    },
+    "guided": {
+      "label": "Guided",
+      "description": "Walks you through the process: it helps you with each decision, step by step."
+    }
+  }
+}

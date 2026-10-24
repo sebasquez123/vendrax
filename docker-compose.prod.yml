@@ -1,0 +1,68 @@
+# PROD: the backend only; every variable (DATABASE_URL included) from .env.prod, on the production host.
+#   docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+#   docker compose -f docker-compose.prod.yml --env-file .env.prod run --rm migrations | seeds <seed> | apikey <clientId>
+name: metbot-prod
+
+services:
+  metbot:
+    build: .
+    image: metbot-mcp-cli:prod
+    env_file: .env.prod
+    environment:
+      LOG_FILE: /var/log/metbot/metbot.log
+      LOG_FILE_SIZE: 50m
+      LOG_FILE_LIMIT: 20
+    volumes:
+      - metbot-logs:/var/log/metbot
+    ports:
+      - '${PORT:-8080}:${PORT:-8080}'
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '10'
+    restart: always
+
+  migrations:
+    build: .
+    image: metbot-mcp-cli:prod
+    profiles: ['jobs']
+    env_file: .env.prod
+    healthcheck:
+      disable: true
+    command: ['node', 'node_modules/typeorm/cli.js', 'migration:run', '-d', 'dist/data-source.js']
+    restart: 'no'
+
+  seeds:
+    build: .
+    image: metbot-mcp-cli:prod
+    profiles: ['jobs']
+    env_file: .env.prod
+    healthcheck:
+      disable: true
+    entrypoint:
+      - sh
+      - -c
+      - |
+        seed="$${1%.js}"
+        if [ -z "$$seed" ] || [ ! -f "dist/migrations/seeds/$$seed.js" ]; then
+          echo "Usage: docker compose run --rm seeds <seed>. Available:"
+          ls dist/migrations/seeds | grep '\.js$$' | sed 's/\.js$$//'
+          exit 1
+        fi
+        exec node "dist/migrations/seeds/$$seed.js"
+      - seeds
+    restart: 'no'
+
+  apikey:
+    build: .
+    image: metbot-mcp-cli:prod
+    profiles: ['jobs']
+    env_file: .env.prod
+    healthcheck:
+      disable: true
+    entrypoint: ['node', 'dist/shared/services/crypto/crypto.js', 'rotate']
+    restart: 'no'
+
+volumes:
+  metbot-logs:

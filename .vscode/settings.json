@@ -1,0 +1,20 @@
+{
+    "chat.mcp.serverSampling": {
+        "metbot-mcp-cli/.vscode/mcp.json: superset": {
+            "allowedModels": [
+                "copilot/auto",
+                "copilotcli/auto",
+                "copilot/gemini-3.8-flash",
+                "copilotcli/gemini-3.8-flash"
+            ]
+        },
+        "metbot-mcp-cli/.vscode/mcp.json: codegraph": {
+            "allowedModels": [
+                "copilot/auto",
+                "copilotcli/auto",
+                "copilot/gemini-3.8-flash",
+                "copilotcli/gemini-3.8-flash"
+            ]
+        }
+    }
+}

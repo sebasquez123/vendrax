@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "isolatedModules": true,
+    "checkJs": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ESNext"],
+    "resolveJsonModule": true,
+    "module": "node16",
+    "target": "es2022",
+    "moduleResolution": "node16",
+    "allowJs": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noEmit": true,
+    "baseUrl": "./",
+    "types": [
+      "node",
+      "express",
+      "babel__generator",
+      "babel__traverse",
+      "estree"
+    ],
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    "ignoreDeprecations": "5.0"
+  },
+  "include": [
+    "**/*/.eslintrc.js",
+    "**/*/schema.eslintrc.js",
+    "src/**/*",
+    "tests/**/*",
+    "tests-e2e/**/*",
+  ],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}

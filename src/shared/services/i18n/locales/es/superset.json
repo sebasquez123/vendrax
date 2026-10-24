@@ -1,0 +1,24 @@
+{
+  "guides": {
+    "how_to_use": {
+      "ask_simply": "Pide en palabras simples qué gráfico crear o cambiar: qué métrica, por qué columna y cómo verlo.",
+      "name_the_chart": "Nombra el gráfico por su título para evitar ambigüedades.",
+      "modes": "En modo Avanzado los cambios se guardan directo en el dashboard; en Guiado, primero te los muestra y pide confirmación."
+    },
+    "keep_in_mind": {
+      "your_data": "Solo usa los datos disponibles para tu usuario, y algunas opciones solo se cambian en el gestor de paneles: te dirá cuáles.",
+      "can_be_wrong": "Puede equivocarse: revisa cifras y filtros antes de publicar.",
+      "no_memory": "No recuerda conversaciones anteriores al iniciar un chat nuevo."
+    }
+  },
+  "modes": {
+    "advance": {
+      "label": "Avanzado",
+      "description": "Trabaja rápido: procesa tu pedido y realiza cambios en el gráfico de manera oportuna."
+    },
+    "guided": {
+      "label": "Guiado",
+      "description": "Te acompaña en el proceso: te asiste en cada decisión paso a paso."
+    }
+  }
+}

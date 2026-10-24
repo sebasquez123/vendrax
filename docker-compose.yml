@@ -1,0 +1,106 @@
+# LOCAL: the backend and its own PostgreSQL, variables from .env.
+#   docker compose up -d --build
+#   docker compose run --rm migrations | seeds <seed> | apikey <clientId>   (one-off jobs, never started by 'up')
+services:
+  metbot:
+    build: .
+    image: metbot-mcp-cli:local
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://metbot:metbot@db:5432/metbot
+      LOG_FILE: /var/log/metbot/metbot.log
+      LOG_FILE_SIZE: 50m
+      LOG_FILE_LIMIT: 20
+    volumes:
+      - metbot-logs:/var/log/metbot
+    ports:
+      - '${PORT:-8080}:${PORT:-8080}'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  migrations:
+    build: .
+    image: metbot-mcp-cli:local
+    profiles: ['jobs']
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://metbot:metbot@db:5432/metbot
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      disable: true
+    command: ['node', 'node_modules/typeorm/cli.js', 'migration:run', '-d', 'dist/data-source.js']
+    restart: 'no'
+
+  seeds:
+    build: .
+    image: metbot-mcp-cli:local
+    profiles: ['jobs']
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://metbot:metbot@db:5432/metbot
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      disable: true
+    entrypoint:
+      - sh
+      - -c
+      - |
+        seed="$${1%.js}"
+        if [ -z "$$seed" ] || [ ! -f "dist/migrations/seeds/$$seed.js" ]; then
+          echo "Usage: docker compose run --rm seeds <seed>. Available:"
+          ls dist/migrations/seeds | grep '\.js$$' | sed 's/\.js$$//'
+          exit 1
+        fi
+        exec node "dist/migrations/seeds/$$seed.js"
+      - seeds
+    restart: 'no'
+
+  apikey:
+    build: .
+    image: metbot-mcp-cli:local
+    profiles: ['jobs']
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://metbot:metbot@db:5432/metbot
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      disable: true
+    entrypoint: ['node', 'dist/shared/services/crypto/crypto.js', 'rotate']
+    restart: 'no'
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: metbot
+      POSTGRES_PASSWORD: metbot
+      POSTGRES_DB: metbot
+    ports:
+      - '5432:5432'
+    volumes:
+      - metbot-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U metbot -d metbot']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  metbot-db:
+  metbot-logs:

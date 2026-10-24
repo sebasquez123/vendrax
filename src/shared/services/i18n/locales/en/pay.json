@@ -1,0 +1,14 @@
+{
+  "guides": {
+    "how_to_use": {
+      "ask_how": "Ask how to do something in METPAY or what an option means: it answers from the platform's manuals.",
+      "find_person": "To look up a person, give the managing entity or collection operator and their name, document, email or username."
+    },
+    "keep_in_mind": {
+      "only_informs": "It only informs: it does not make sales, top-ups or changes, nor check balances or reports.",
+      "no_secrets": "It will never ask you for passwords, codes or PINs.",
+      "can_be_wrong": "It can be wrong: confirm important data on the platform.",
+      "no_memory": "It does not remember previous conversations when you start a new chat."
+    }
+  }
+}

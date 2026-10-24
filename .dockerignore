@@ -1,0 +1,20 @@
+# Nothing local, secret or generated goes into the image: the .env is given to the container when it runs.
+.env
+.env.qa
+.env.prod
+.debug.env
+.git
+.husky
+.vscode
+.claude
+.codex
+.gemini
+.agents
+.codegraph
+.mcp.json
+node_modules
+dist
+tests
+docs
+coverage
+*.log
